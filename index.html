@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>REG.RU Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100%; }
+      body { height: 100%; margin: 0; padding: 0; }
+      #map_canvas { height: 100%; }
+      .logo { position: absolute; top: 10px; left: 90px; }
+      .popup { }
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByreUWkRM-o6B05Qw_8IOJ3sq2LjcWP_I&sensor=false">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(56.835069, 60.647785),
+          zoom: 4,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          styles: [
+            {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "hue": "#F1FF00"
+                    },
+                    {
+                        "saturation": -27.4
+                    },
+                    {
+                        "lightness": 9.4
+                    },
+                    {
+                        "gamma": 1
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "hue": "#0099FF"
+                    },
+                    {
+                        "saturation": -20
+                    },
+                    {
+                        "lightness": 36.4
+                    },
+                    {
+                        "gamma": 1
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "hue": "#00FF4F"
+                    },
+                    {
+                        "saturation": 0
+                    },
+                    {
+                        "lightness": 0
+                    },
+                    {
+                        "gamma": 1
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "hue": "#FFB300"
+                    },
+                    {
+                        "saturation": -38
+                    },
+                    {
+                        "lightness": 11.2
+                    },
+                    {
+                        "gamma": 1
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "hue": "#00B6FF"
+                    },
+                    {
+                        "saturation": 4.2
+                    },
+                    {
+                        "lightness": -63.4
+                    },
+                    {
+                        "gamma": 1
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "hue": "#9FFF00"
+                    },
+                    {
+                        "saturation": 0
+                    },
+                    {
+                        "lightness": 0
+                    },
+                    {
+                        "gamma": 1
+                    }
+                ]
+            }
+          ]
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+        var icon_building = 'office-building.png';
+        var offices = {
+          moscow: new google.maps.Marker({
+            position: new google.maps.LatLng(55.762412, 37.551874),
+            icon: icon_building,
+            title: "Москва"}),
+          piter: new google.maps.Marker({
+            position: new google.maps.LatLng(59.967978, 30.338026),
+            icon: icon_building,
+            title: "Санкт-Петербург"}),
+          astrahan: new google.maps.Marker({
+            position: new google.maps.LatLng(46.359564, 48.066607),
+            icon: icon_building,
+            title: "Астрахань"}),
+          belgorod: new google.maps.Marker({
+            position: new google.maps.LatLng(50.601411, 36.602832),
+            icon: icon_building,
+            title: "Белгород"}),
+          bryansk: new google.maps.Marker({
+            position: new google.maps.LatLng(53.312491, 34.289422),
+            icon: icon_building,
+            title: "Брянск"}),
+          vladimir: new google.maps.Marker({
+            position: new google.maps.LatLng(56.137812, 40.404329),
+            icon: icon_building,
+            title: "Владимир"}),
+          voronezh: new google.maps.Marker({
+            position: new google.maps.LatLng(56.137812, 40.404329),
+            icon: icon_building,
+            title: "Воронеж"}),
+          grozny: new google.maps.Marker({
+            position: new google.maps.LatLng(43.321168, 45.684849),
+            icon: icon_building,
+            title: "Грозный"}),
+          ekaterinburg: new google.maps.Marker({
+            position: new google.maps.LatLng(56.835069, 60.647785),
+            icon: icon_building,
+            title: "Екатеринбург"}),
+          kazan: new google.maps.Marker({
+            position: new google.maps.LatLng(55.797693, 49.06782),
+            icon: icon_building,
+            title: "Казань"}),
+          kaliningrad: new google.maps.Marker({
+            position: new google.maps.LatLng(54.724111, 20.467903),
+            icon: icon_building,
+            title: "Калининград"}),
+          krasnoyarsk: new google.maps.Marker({
+            position: new google.maps.LatLng(56.010715, 92.87843),
+            icon: icon_building,
+            title: "Красноярск"}),
+          kursk: new google.maps.Marker({
+            position: new google.maps.LatLng(51.769358, 36.173486),
+            icon: icon_building,
+            title: "Курск"}),
+          lipetsk: new google.maps.Marker({
+            position: new google.maps.LatLng(52.594017, 39.56217),
+            icon: icon_building,
+            title: "Липецк"}),
+          mahachkala: new google.maps.Marker({
+            position: new google.maps.LatLng(42.949103, 47.520329),
+            icon: icon_building,
+            title: "Махачкала"}),
+          novosibirsk: new google.maps.Marker({
+            position: new google.maps.LatLng(55.046781, 82.916755),
+            icon: icon_building,
+            title: "Новосибирск"}),
+          orel: new google.maps.Marker({
+            position: new google.maps.LatLng(52.979849, 36.075255),
+            icon: icon_building,
+            title: "Орёл"}),
+          orenburg: new google.maps.Marker({
+            position: new google.maps.LatLng(51.774012, 55.131358),
+            icon: icon_building,
+            title: "Оренбург"}),
+          perm: new google.maps.Marker({
+            position: new google.maps.LatLng(58.015669, 56.239838),
+            icon: icon_building,
+            title: "Пермь"}),
+          rostov: new google.maps.Marker({
+            position: new google.maps.LatLng(47.27936, 39.705823),
+            icon: icon_building,
+            title: "Ростов"}),
+          ryazan: new google.maps.Marker({
+            position: new google.maps.LatLng(54.631779, 39.749041),
+            icon: icon_building,
+            title: "Рязань"}),
+          samara: new google.maps.Marker({
+            position: new google.maps.LatLng(53.225935, 50.177729),
+            icon: icon_building,
+            title: "Самара"}),
+          oskol: new google.maps.Marker({
+            position: new google.maps.LatLng(51.311423, 37.909167),
+            icon: icon_building,
+            title: "Старый Оскол"}),
+          surgut: new google.maps.Marker({
+            position: new google.maps.LatLng(61.259989, 73.403617),
+            icon: icon_building,
+            title: "Сургут"}),
+          tula: new google.maps.Marker({
+            position: new google.maps.LatLng(54.196038, 37.612394),
+            icon: icon_building,
+            title: "Тула"}),
+          tyumen: new google.maps.Marker({
+            position: new google.maps.LatLng(57.150724, 65.583995),
+            icon: icon_building,
+            title: "Тюмень"}),
+          ufa: new google.maps.Marker({
+            position: new google.maps.LatLng(54.785214, 56.034652),
+            icon: icon_building,
+            title: "Уфа"}),
+          habarovsk: new google.maps.Marker({
+            position: new google.maps.LatLng(48.469488, 135.074478),
+            icon: icon_building,
+            title: "Хабаровск"}),
+          chelyabinsk: new google.maps.Marker({
+            position: new google.maps.LatLng(55.144624, 61.380749),
+            icon: icon_building,
+            title: "Челябинск"}),
+          kiev: new google.maps.Marker({
+            position: new google.maps.LatLng(50.437501, 30.520309),
+            icon: icon_building,
+            title: "Киев"}),
+          kishinev: new google.maps.Marker({
+            position: new google.maps.LatLng(47.016617, 28.842126),
+            icon: icon_building,
+            title: "Кишинёв"})
+        };
+        var addresses = {
+          moscow: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Москва, ул. 2-я Звенигородская, д. 13, строение 43, офис 326.<br/>Вход и въезд со стороны ул. Сергея Макеева.</div>'
+          }),
+          piter: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Санкт-Петербург, Выборгская наб., 29, офис 512.</div>'
+          }),
+          astrahan: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Астрахань, ул. Минусинская, д. 8а, центр &laquo;БОШ&raquo;, 2 этаж, компьютерный центр &laquo;КОТ&raquo;</div>'
+          }),
+          belgorod: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Белгород, ул. Белгородского полка, дом 65</div>'
+          }),
+          bryansk: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Брянск, ул. Ульянова, д. 103, офис 9, третий этаж</div>'
+          }),
+          vladimir: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Владимир, ул. Зелёная, д. 1а, офис 3.01.</div>'
+          }),
+          voronezh: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Воронеж, ул. Куколкина, дом 9, офис 403, OOO &laquo;Корпорация Usoft&raquo;</div>'
+          }),
+          grozny: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Грозный, пр. В. Путина, д. 16</div>'
+          }),
+          ekaterinburg: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Екатеринбург, улица Гагарина, дом 28/10, проходная завода "Вектор" со стороны Гагарина, цех №5, 5 этаж, офис 504.</div>'
+          }),
+          kazan: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Казань, ул. Большая, дом 2.</div>'
+          }),
+          kaliningrad: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Калининград, улица Каменная, дом 17, офис 2.</div>'
+          }),
+          krasnoyarsk: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Красноярск, ул. Сурикова, дом 12, офис 5-08.</div>'
+          }),
+          kursk: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Калининград, улица Каменная, дом 17, офис 2.</div>'
+          }),
+          lipetsk: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Липецк, пр. Победы, д. 74</div>'
+          }),
+          mahachkala: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Махачкала, улица Гагарина, дом 131.</div>'
+          }),
+          novosibirsk: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Новосибирск, Красный проспект, д. 82, оф. 151 (2 этаж).</div>'
+          }),
+          orel: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Орёл, ул. 60 лет Октября, д. 14</div>'
+          }),
+          orenburg: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Оренбург, улица Туркестанская, дом 88/а.</div>'
+          }),
+          perm: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Пермь, улица Газеты &laquo;Звезда&raquo; дом 5, офис 222</div>'
+          }),
+          rostov: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Ростов-на-Дону, ул. Борко, д. 2.</div>'
+          }),
+          ryazan: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Рязань, ул. Новослободская, дом 9</div>'
+          }),
+          samara: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Самара, ул. Академика Павлова, д. 35, 4 этаж, офис 21.</div>'
+          }),
+          oskol: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Старый Оскол, м-н Восточный, дом 2А</div>'
+          }),
+          surgut: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Сургут, пр-т Мира 33/1, офис 306</div>'
+          }),
+          tula: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Тула, ул. Советская, д. 17Б</div>'
+          }),
+          tyumen: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г.Тюмень, ул. Минская, дом 9б, офис 508</div>'
+          }),
+          ufa: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Уфа, Проспект Октября, дом 152, офис 75.</div>'
+          }),
+          habarovsk: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Хабаровск, ул. Гамарника, д. 15, оф 17.</div>'
+          }),
+          chelyabinsk: new google.maps.InfoWindow({
+            content: '<div class="popup">Россия, г. Челябинск, ул. Воровского, д. 61-б, офис 15.</div>'
+          }),
+          kiev: new google.maps.InfoWindow({
+            content: '<div class="popup">Украина, г. Киев, улица Эспланадная, дом 20, офис 516.</div>'
+          }),
+          kishinev: new google.maps.InfoWindow({
+            content: '<div class="popup">Republica Moldova, Chisinau, str. Tighina 49/4, et. 2.</div>'
+          })
+        };
+        for (office in offices) {
+          offices[office].setMap(map);
+          var address = (function(a) {
+            return google.maps.event.addListener(offices[a], 'click', function() {
+              addresses[a].open(map, offices[a]);
+            });
+          })(office);
+        }
+      }
+    </script>
+  </head>
+  <body onload="initialize()">
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+    <a href="https://www.reg.ru/"><img class="logo" src="regru.png" alt="REG.RU" /></a>
+  </body>
+</html>
